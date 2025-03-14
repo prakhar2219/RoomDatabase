@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.room.Room
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
     lateinit var database: ContactDatabase
@@ -17,10 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+// singleton pattern means ek project ke andaar database kaa sirf ek hi instance hoga
+//        database = Room.databaseBuilder(applicationContext,
+//            ContactDatabase::class.java,
+//            "contactDB").build()
 
-        database = Room.databaseBuilder(applicationContext,
-            ContactDatabase::class.java,
-            "contactDB").build()
+        database = ContactDatabase.getDatabase(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         GlobalScope.launch {
-            database.contactDao().insertContact(Contact(0, "John", "99999"))
+            database.contactDao().insertContact(Contact(0, "John", "99999", Date()))
         }
 //        jaise jaise data me update hoga ye call ho jayegaa
         fun getContact(view: View){

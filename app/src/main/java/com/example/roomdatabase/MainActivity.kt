@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.room.Room
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.Date
@@ -35,10 +34,11 @@ class MainActivity : AppCompatActivity() {
             database.contactDao().insertContact(Contact(0, "John", "99999", Date()))
         }
 //        jaise jaise data me update hoga ye call ho jayegaa
-        fun getContact(view: View){
-            database.contactDao().getContact().observe(this){
-                Log.d("prakhar",it.toString())
-            }
+
+    }
+    fun getContact(view: View){
+        database.contactDao().getContact().observe(this){
+            Log.d("prakhar",it.toString())
         }
     }
 }

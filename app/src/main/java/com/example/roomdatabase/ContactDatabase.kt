@@ -11,7 +11,7 @@ import androidx.room.TypeConverters
 //since there can be multiple enteries in the table so we will use array,and pass the entity name in it
 @Database(entities = [Contact::class], version = 1)
 @TypeConverters(Convertors::class)
-abstract class ContactDatabase:RoomDatabase {
+abstract class ContactDatabase:RoomDatabase() {
     abstract fun contactDao():ContactDao
 
 //    implementing singleton pattern
